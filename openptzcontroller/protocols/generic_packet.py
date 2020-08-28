@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ##########################################################################
-# PTZ Controller - An Open Source PTZ Camera Controller                  #
+# Open PTZ Controller - An Open Source PTZ Camera Controller             #
 # ---------------------------------------------------------------------- #
 # Copyright (c) 2008-2020 Jack Andrews                                   #
 # ---------------------------------------------------------------------- #
@@ -19,21 +19,34 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>. #
 ##########################################################################
 
-"""
-    :mod:`ptzcontroller.core.protocols.genericerrors`
+'''
+    :mod:`openptzcontroller.core.protocols.generic_packet`
     
-    Provides some standard error definitions which are common to all protocols.
+    Provides a standard packet descriptor and operations class which can be used by communication protocols.
     
-"""
+'''
 
-class Error(Exception):
-    pass
+class GenericPacket(object):
+    '''
+    classdocs
+    '''
 
-class ParameterOutOfRangeError(Error):
-
-    def __init__(self, value, max, min):
+    def __init__(self):
         '''
         Constructor
         '''
-
+        self.bytes = bytearray()
+        
+    def init(self):
+        
+        self.bytes = bytearray()
+        
+    def append_byte(self, byte):
+        
+        self.bytes.append(byte)
+        
+    def get_length(self):
+        
+        return len(self.bytes)
+        
         

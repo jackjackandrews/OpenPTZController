@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ##########################################################################
-# PTZ Controller - An Open Source PTZ Camera Controller                  #
+# Open PTZ Controller - An Open Source PTZ Camera Controller             #
 # ---------------------------------------------------------------------- #
 # Copyright (c) 2008-2020 Jack Andrews                                   #
 # ---------------------------------------------------------------------- #
@@ -19,34 +19,27 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>. #
 ##########################################################################
 
-"""
-    :mod:`ptzcontroller.core.protocols.packet`
+'''
+    :mod:`openptzcontroller.core.protocols.generic_exceptions`
     
-    Provides a standard packet descriptor and operations class which can be used by communication protocols.
+    Provides some standard error definitions which are common to all protocols.
     
-"""
+'''
 
-class GenericPacket(object):
-    '''
-    classdocs
-    '''
+class ProtocolError(Exception):
+    '''Basic exception class for any protocol errors'''
+    def __init__(self, msg=None):
+        if msg is None:
+            msg = 'A protocol error occurred'
+        super(ProtocolError, self).__init__(msg)
 
-    def __init__(self):
-        '''
-        Constructor
-        '''
-        self.bytes = bytearray()
-        
-    def init(self):
-        
-        self.bytes = bytearray()
-        
-    def append_byte(self, byte):
-        
-        self.bytes.append(byte)
-        
-    def get_length(self):
-        
-        return len(self.bytes)
-        
+class ParameterOutOfRangeError(ProtocolError, ValueError):
+    '''Raised when parameter passed to a command is outside the acceptable range defined by the protocol'''
+
+    def __init__(self, parameter_name, parameter_value, parameter_max, parameter_min):
+        super(ParameterOutOfRangeError, self).__init__(parameter_name + ' is outside the range defined by the protocol. Parameter value was: {}, must be in range: {} to {}'.format(parameter_value, parameter_min, parameter_max))
+        self.parameter_name = parameter_name
+        self.parameter_value = parameter_value
+        self.parameter_max = parameter_max
+        self.parameter_min = parameter_min
         
