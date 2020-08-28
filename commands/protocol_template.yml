@@ -1,0 +1,16 @@
+
+---
+name:                   # human-friendly name for the protocol
+source_document:        # web link to the protocol document source which was used to compile this file
+interface:  
+    type:               # type of interface used by the protocol eg. serial, tcp, udp, cgi
+    defaults:           # defaults for the interface type specified - these can be overridden in the program
+        # required defaults for type: serial
+        baudrate:
+        start_bits:
+        stop_bits:
+        parity:
+        
+        # required defaults for type: tcp/udp 
+        port:
+
